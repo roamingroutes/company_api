@@ -1,0 +1,34 @@
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore temporary files and logs
+*.log
+*.tlog
+*.vspscc
+*.vscode
+.vs/
+
+# Ignore packages and build artifacts
+packages/
+*.nupkg
+*.snupkg
+
+# Ignore IDE and editor configuration
+*.csproj.user
+*.ide.*
+.idea/
+
+# Ignore publish output
+publish/
+
+# Ignore OS-specific files
+Thumbs.db
+ehthumbs.db
+.DS_Store
