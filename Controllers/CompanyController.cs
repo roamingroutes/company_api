@@ -2,6 +2,7 @@
 using company_api.validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace company_api.Controllers
 {
@@ -20,7 +21,7 @@ namespace company_api.Controllers
             _context = context;
         }
 
-        [HttpGet(Name = "Company")]
+        [HttpGet(Name = "Companies")]
         public IActionResult GetCompany()
         {
             return Ok(_context.Companies.ToList());
@@ -44,6 +45,26 @@ namespace company_api.Controllers
 
             return Ok(company);
         }
+
+        // GET: api/company/search/{id}
+        [HttpGet("search/{searchText}", Name ="Search")]
+        public IActionResult SearchCompany(string searchText)
+        {
+
+            if (searchText.Length==0)
+            {
+                return BadRequest("Search Text cannot be empty.\n");
+            }
+
+            var company = _context.Companies.Where(c=>c.Name!.ToString().Contains(searchText) );
+            if (company == null)
+            {
+                return NotFound($"The Search Text provided ({searchText.ToString()}) does not match any Company.");
+            }
+
+            return Ok(company);
+        }
+
 
         [HttpPost(Name = "Company")]
         public IActionResult AddCompany([FromBody] Company company)
